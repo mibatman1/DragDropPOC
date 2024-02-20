@@ -4,14 +4,17 @@ import SingleButton from './SingleButton';
 import DroppedButton from './DroppedButton';
 import FileSaver from 'file-saver';
 import { useButtonContext } from '../context/ButtonContext';
+import Column from './Column';
+import DroppedColumn from './DroppedColumn';
 
 type Props=
 {
-    buttons:string[]
+    element:string[]
     dropped:string[]
+    columndropped:string[]
 }
 
-const Section=({buttons, dropped}:Props)=>
+const Section=({element, dropped, columndropped}:Props)=>
 {
     const { buttonObject }=useButtonContext();
     const handleJson=()=>
@@ -53,11 +56,12 @@ const Section=({buttons, dropped}:Props)=>
                 (
                     <div className="left-side" ref={provided.innerRef} {...provided.droppableProps}>
                         {
-                            buttons.map((button, index)=>
+                            element.map((element, index)=>
                             {
-                                return(
-                                    <SingleButton button={button} index={index} key={button}/>
-                                )
+                                if(element==='button')
+                                    return <SingleButton button={element} index={index} key={index}/>
+                                else if(element==='column')
+                                    return <Column button={element} index={index} key={index}/>
                             })
                         }
                         {provided.placeholder}
@@ -75,9 +79,10 @@ const Section=({buttons, dropped}:Props)=>
                         {
                             dropped.map((button, index)=>
                             {
-                                return(
-                                    <DroppedButton button={button} index={index} key={button}/>
-                                )
+                                if(button==='button')
+                                    return <DroppedButton button={button+new Date()} index={index} key={button}/>
+                                else if(button==='column')
+                                    return <DroppedColumn button={button} index={index} key={button} columDropped={columndropped}/>
                             })
                         }
                         {provided.placeholder}

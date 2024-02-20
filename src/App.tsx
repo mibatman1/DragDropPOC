@@ -6,8 +6,9 @@ import { ButtonProvider } from './context/ButtonContext';
 
 const App=()=>
 {
-  const[buttons, setButtons]=useState<string[]>(['a','b','c']);
+  const[buttons, setButtons]=useState<string[]>(['button','column','button1']);
   const [droppedButtons, setDroppedButton]=useState<string[]>([]);
+  const [columnDropped, setColumnDropped]=useState<string[]>([]);
 
   const onDragEnd=(result:DropResult)=>
   {
@@ -22,6 +23,7 @@ const App=()=>
     let add;
     let active = buttons;
     let dropped=droppedButtons;
+    let droppedClm=columnDropped;
     if(source.droppableId==='tool-list')
     {
       add=active[source.index];
@@ -37,12 +39,18 @@ const App=()=>
     {
       dropped.splice(destination.index,0,add);
     }
+
+    if(destination.droppableId==='column-drop1')
+    {
+      droppedClm.splice(destination.index,0,add);
+    }
     // else
     // {
     //   active.splice(destination.index,0,add);
     // }
     setButtons(active)
     setDroppedButton(dropped);
+    setColumnDropped(droppedClm);
   }
 
   
@@ -51,7 +59,7 @@ const App=()=>
     <DragDropContext onDragEnd={onDragEnd}>
       <ButtonProvider>
         <div className="container">
-          <Section buttons={buttons} dropped={droppedButtons}/>
+          <Section element={buttons} dropped={droppedButtons} columndropped={columnDropped}/>
         </div>
       </ButtonProvider>
     </DragDropContext>

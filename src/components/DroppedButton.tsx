@@ -65,7 +65,7 @@ const DroppedButton=({button, index}:Props)=>
                         {...provided.draggableProps} 
                         ref={provided.innerRef}
                     >
-                        <a id={`dragged${button}`} onContextMenu={()=>{handleUpdateStyle(`dragged${button}`)}}>{`Button ${button}`}</a>
+                        <a id={`dragged${button}`} onContextMenu={()=>{handleUpdateStyle(`dragged${button}`)}}>Button</a>
                         
                     </div>
                 )}

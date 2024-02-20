@@ -19,7 +19,7 @@ const SingleButton=({button, index}:Props)=>
                     {...provided.draggableProps} 
                     ref={provided.innerRef}
                 >
-                    <button>{`Button ${button}`}</button>
+                    <button>{button}</button>
                 </div>
             )}
         </Draggable>
